@@ -1,5 +1,5 @@
 <?php
-function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio )  {
+function registration_validation( $username, $password, $email, $first_name, $last_name, $password_confirm )  {
 
     global $reg_errors;
 $reg_errors = new WP_Error;
@@ -27,6 +27,10 @@ if ( username_exists( $username ) ){
     if ( 5 > strlen( $password ) ) {
         $reg_errors->add( 'password', 'Password length must be greater than 5' );
     }
+	
+	 if (  strlen( $password_confirmed ) > strlen( $password ) ) {
+        $reg_errors->add( 'password', 'Password not matched' );
+    }
 
     if ( !is_email( $email ) ) {
         $reg_errors->add( 'email_invalid', 'Email is not valid' );
@@ -38,11 +42,11 @@ if ( username_exists( $username ) ){
     }
 
 
-    if ( ! empty( $website ) ) {
-        if ( ! filter_var( $website, FILTER_VALIDATE_URL ) ) {
-            $reg_errors->add( 'website', 'Website is not a valid URL' );
-        }
-    }
+//     if ( ! empty( $website ) ) {
+//         if ( ! filter_var( $website, FILTER_VALIDATE_URL ) ) {
+//             $reg_errors->add( 'website', 'Website is not a valid URL' );
+//         }
+//     }
 
 
 
@@ -50,10 +54,10 @@ if ( username_exists( $username ) ){
  
         foreach ( $reg_errors->get_error_messages() as $error ) {
          
-            echo '<div>';
-            echo '<strong>ERROR</strong>:';
-            echo $error . '<br/>';
-            echo '</div>';
+//             echo '<div>';
+//             echo '<strong>ERROR</strong>:';
+//             echo $error . '<br/>';
+//             echo '</div>';
              
         }
      

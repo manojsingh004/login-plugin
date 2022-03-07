@@ -14,7 +14,7 @@ function custom_registration_function() {
         );
          
         // sanitize user form input
-        global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio;
+        global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio,$tbusiness;
         $username   =   sanitize_user( $_POST['username'] );
         $password   =   esc_attr( $_POST['password'] );
         $email      =   sanitize_email( $_POST['email'] );
@@ -23,6 +23,7 @@ function custom_registration_function() {
         $last_name  =   sanitize_text_field( $_POST['lname'] );
         $nickname   =   sanitize_text_field( $_POST['nickname'] );
         $bio        =   esc_textarea( $_POST['bio'] );
+		 $tbusiness       =   $_POST['typeOfBuisness'];
  
         // call @function complete_registration to create the user
         // only when no WP_error is found
@@ -48,5 +49,10 @@ function custom_registration_function() {
         $nickname,
         $bio
         );
+$user_data=get_user_by('email',$email);
+	$user_id = $user_data->ID;
+
+add_user_meta( $user_id, 'typeOfBuisness', $tbusiness);
+
         deliver_mail();
 }
