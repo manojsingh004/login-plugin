@@ -24,9 +24,7 @@ function login_function() {
 
 <script>
 jQuery(document).ready(function(){
-    jQuery('#username').on('change', function(){
-        let user = jQuery(this).val();
-		
+    function getUser(user){
         jQuery.ajax({
             type: 'POST',
             url: 'http://www.pipelinesgo.com/wp-admin/admin-ajax.php',
@@ -45,15 +43,24 @@ jQuery(document).ready(function(){
                 console.log(err);
             }
         });
+    }
+
+    jQuery('#username').on('change', function(){
+        let user = jQuery(this).val();
+        var timer =0;
+
+        clearTimeout(timer);
+        timer = setTimeout(getUser(user), 1000);
+		
+
     });
 });
 </script>
 
 <script>
 jQuery(document).ready(function(){
-    jQuery('#email').on('change', function(){
-        let email = jQuery(this).val();
-		
+
+    function getEmail(email){
         jQuery.ajax({
             type: 'POST',
             url: 'http://www.pipelinesgo.com/wp-admin/admin-ajax.php',
@@ -74,6 +81,17 @@ jQuery(document).ready(function(){
                 console.log(err);
             }
         });
+    }
+    jQuery('#email').on('change', function(){
+
+
+
+        let email = jQuery(this).val();
+		var timer =0;
+
+        clearTimeout(timer);
+        timer = setTimeout(getEmail(email), 1000);
+
     });
 });
 	
